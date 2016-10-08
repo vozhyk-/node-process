@@ -1,5 +1,7 @@
+var EventEmitter = require('events');
+
 // shim for using process in browser
-var process = module.exports = {};
+var process = module.exports = new EventEmitter();
 
 // cached from whatever global is present so that test runners that stub it
 // don't break things.  But we need to wrap it in a try catch in case it is
@@ -158,16 +160,6 @@ process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
 process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
